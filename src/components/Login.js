@@ -1,9 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SessionActions from '../actions/SessionActions';
 
 class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    email: '',
+    username: '',
+    password: ''
+  }
+
+  onChange = (e) => {
+    const change = {};
+    change[e.target.name] = e.target.value;
+    this.setState(change);
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    SessionActions.login(this.state);
   }
 
   render() {
@@ -13,15 +27,15 @@ class Login extends React.Component {
           <div className="auth">
             <h2>Login</h2>
 
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <div className="input-group">
                 <span>Email</span>
-                <input type="email" />
+                <input name="email" type="email" />
               </div>
 
               <div className="input-group">
                 <span>Password</span>
-                <input type="password" />
+                <input name="password" type="password" />
               </div>
 
               <div className="input-group">

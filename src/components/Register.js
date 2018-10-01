@@ -1,9 +1,23 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import SessionActions from '../actions/SessionActions';
 
 class Register extends React.Component {
-  constructor(props) {
-    super(props);
+  state = {
+    email: '',
+    username: '',
+    password: ''
+  }
+
+  onChange = (e) => {
+    const change = {};
+    change[e.target.name] = e.target.value;
+    this.setState(change);
+  }
+
+  handleSubmit = (e) => {
+    e.preventDefault();
+    SessionActions.register(this.state);
   }
 
   render() {
@@ -13,20 +27,29 @@ class Register extends React.Component {
           <div className="auth">
             <h2>Register</h2>
 
-            <form>
+            <form onSubmit={this.handleSubmit}>
               <div className="input-group">
                 <span>Email</span>
-                <input type="email" />
+                <input
+                  onChange={this.onChange}
+                  name="email"
+                  type="email" />
               </div>
 
               <div className="input-group">
                 <span>Username</span>
-                <input type="text" />
+                <input
+                  onChange={this.onChange}
+                  name="username"
+                  type="text" />
               </div>
 
               <div className="input-group">
                 <span>Password</span>
-                <input type="password" />
+                <input
+                  onChange={this.onChange}
+                  name="password"
+                  type="password" />
               </div>
 
               <div className="input-group">
